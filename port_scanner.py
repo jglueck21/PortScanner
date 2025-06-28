@@ -1,5 +1,6 @@
 import socket
 from concurrent.futures import ThreadPoolExecutor
+import argparse
 
 def scan_port(host, port):
     try:
@@ -8,19 +9,22 @@ def scan_port(host, port):
             result = s.connect_ex((host, port))
             if result == 0:
                 print(f"Port {port} is OPEN")
-    except Exception as e:
-        pass  # Ignore errors for now
+    except Exception:
+        pass
 
 def main():
-    host = input("Enter the host to scan (IP or domain): ")
-    start_port = int(input("Enter start port number: "))
-    end_port = int(input("Enter end port number: "))
+    parser = argparse.ArgumentParser(description="Simple Python Port Scanner")
+    parser.add_argument('--host', type=str, required=True, help='Target host IP or domain')
+    parser.add_argument('--start', type=int, default=1, help='Start port number (default: 1)')
+    parser.add_argument('--end', type=int, default=1024, help='End port number (default: 1024)')
 
-    print(f"Scanning ports {start_port} to {end_port} on {host}...\n")
+    args = parser.parse_args()
+
+    print(f"Scanning ports {args.start} to {args.end} on {args.host}...\n")
 
     with ThreadPoolExecutor(max_workers=100) as executor:
-        for port in range(start_port, end_port + 1):
-            executor.submit(scan_port, host, port)
+        for port in range(args.start, args.end + 1):
+            executor.submit(scan_port, args.host, port)
 
 if __name__ == "__main__":
     main()
