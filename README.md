@@ -75,7 +75,7 @@ Never scan random websites or servers without explicit permission.
 
 ---
 
-## 📸 Demo Screenshot Idea
+## 📸 Demo Screenshot
 <img width="1104" height="196" alt="image" src="https://github.com/user-attachments/assets/589fa8eb-936c-4fdf-b297-58e18f28d9a7" />
 
 ---
